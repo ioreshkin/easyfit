@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./easyfit-backend
+    ports:
+      - "3002:3002"
+  networks:
+      - app-network
+
+  frontend:
+    build: ./easyfit-frontend
+    ports:
+      - "3000:3000"
+  networks:
+      - app-network
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+volumes:
+      - /etc/nginx/sites-available/varvara.osoka.fvds.ru.conf:/etc/nginx/conf.d/default.conf
+      - /etc/letsencrypt:/etc/letsencrypt
+      - /var/log/nginx:/var/log/nginx
+networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
