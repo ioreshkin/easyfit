@@ -1,1 +1,1 @@
-docker compose --app -d
+docker compose up --build -d
